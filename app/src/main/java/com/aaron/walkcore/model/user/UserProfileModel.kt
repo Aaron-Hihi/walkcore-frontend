@@ -3,6 +3,7 @@ package com.aaron.walkcore.model.user
 import com.aaron.walkcore.model.enums.Gender
 
 data class UserProfileModel(
+    val id: String,
     val username: String,
     val profilePictureUrl: String?,
     val email: String,

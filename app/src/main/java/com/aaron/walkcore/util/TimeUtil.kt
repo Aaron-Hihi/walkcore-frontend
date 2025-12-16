@@ -52,7 +52,7 @@ fun formatToDisplayDateTimeRange(startTime: ZonedDateTime, endTime: ZonedDateTim
         val startPart = formatToDisplayShortDateTime(localStart)
         val endPart = formatToDisplayShortDateTime(localEnd)
 
-        displayString = "$startPart - $endPart"
+        displayString = "$startPart - \n$endPart"
     }
 
     return "$displayString $zoneName"

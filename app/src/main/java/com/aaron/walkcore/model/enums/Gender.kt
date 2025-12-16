@@ -1,6 +1,6 @@
 package com.aaron.walkcore.model.enums
 
-enum class Gender {
-    MALE,
-    FEMALE
+enum class Gender(val displayText: String) {
+    MALE("Male"),
+    FEMALE("Femlae")
 }

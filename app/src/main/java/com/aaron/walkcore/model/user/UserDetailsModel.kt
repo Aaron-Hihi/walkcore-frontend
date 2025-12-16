@@ -2,7 +2,7 @@ package com.aaron.walkcore.model.user
 
 import com.aaron.walkcore.model.enums.Gender
 
-data class UserOverviewModel(
+data class UserDetailsModel(
     val id: String,
     val username: String,
     val email: String,

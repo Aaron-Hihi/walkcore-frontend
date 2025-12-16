@@ -1,7 +1,7 @@
 package com.aaron.walkcore.model.enums
 
-enum class ParticipantStatus {
-    JOINED,
-    LEFT,
-    FINISHED
+enum class ParticipantStatus(val displayText: String) {
+    JOINED("Joined"),
+    LEFT("Left"),
+    FINISHED("Finished")
 }

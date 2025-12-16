@@ -1,4 +1,4 @@
-package com.aaron.walkcore.ui.view.component
+package com.aaron.walkcore.ui.view.component.session
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box

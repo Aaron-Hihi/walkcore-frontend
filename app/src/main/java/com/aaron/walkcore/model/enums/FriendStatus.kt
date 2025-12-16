@@ -1,7 +1,7 @@
 package com.aaron.walkcore.model.enums
 
-enum class FriendStatus {
-    PENDING,
-    ACCEPTED,
-    BLOCKED
+enum class FriendStatus(val displayText: String) {
+    PENDING("Pending"),
+    ACCEPTED("Accepted"),
+    BLOCKED("Blocked")
 }

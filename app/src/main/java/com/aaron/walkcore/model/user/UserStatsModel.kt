@@ -1,6 +1,7 @@
 package com.aaron.walkcore.model.user
 
 data class UserStatsModel(
+    val id: String,
     val currency: Int,
     val totalSteps: String,
     val totalDistance: Double,
