@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import com.aaron.walkcore.data.dummy.SessionOverviewDummy
+import com.aaron.walkcore.route.AppRouting
 import com.aaron.walkcore.ui.theme.WalkcoreTheme
 import com.aaron.walkcore.ui.view.component.session.SessionOverviewComponent
 
@@ -15,8 +16,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             WalkcoreTheme {
                 SessionOverviewComponent(
-                    sessionOverview = SessionOverviewDummy.SessionDummyFull,
-                    showDescription = true
+                    AppRouting()
                 )
             }
         }
