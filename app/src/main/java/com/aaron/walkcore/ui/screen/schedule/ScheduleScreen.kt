@@ -8,8 +8,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -18,6 +17,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.window.Popup
+import androidx.compose.ui.window.PopupProperties
 import com.aaron.walkcore.ui.theme.WalkcoreTheme
 import java.time.YearMonth
 
@@ -50,7 +51,7 @@ fun ScheduleScreen() {
 }
 
 // ==========================
-// HEADER (PLACEHOLDER)
+// HEADER
 // ==========================
 @Composable
 private fun ScheduleHeader() {
@@ -75,17 +76,100 @@ private fun ScheduleHeader() {
 // ==========================
 @Composable
 private fun SetCalendarButton() {
+    var showPopup by remember { mutableStateOf(false) }
+
     Button(
-        onClick = { /* UI only */ },
+        onClick = { showPopup = true },
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(12.dp)
     ) {
         Text("Set Calendar")
     }
+
+    if (showPopup) {
+        AddSchedulePopup(
+            onDismiss = { showPopup = false }
+        )
+    }
 }
 
 // ==========================
-// SWIPEABLE CALENDAR (SAFE VERSION)
+// ADD SCHEDULE POPUP
+// ==========================
+@Composable
+private fun AddSchedulePopup(
+    onDismiss: () -> Unit
+) {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.Black.copy(alpha = 0.4f))
+            .padding(24.dp),
+        contentAlignment = Alignment.Center
+    ) {
+        Popup(
+            alignment = Alignment.Center,
+            properties = PopupProperties(
+                dismissOnBackPress = true,
+                dismissOnClickOutside = true
+            ),
+            onDismissRequest = onDismiss
+        ) {
+
+            Card(
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(16.dp),
+                elevation = CardDefaults.cardElevation(8.dp)
+            ) {
+                Column(
+                    modifier = Modifier.padding(20.dp),
+                    verticalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+
+                    Text(
+                        text = "Tambah Jadwal",
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight.SemiBold
+                    )
+
+                    ScheduleOptionButton("📅 Jadwal Harian")
+                    ScheduleOptionButton("🏃 Jadwal Olahraga")
+                    ScheduleOptionButton("🍽 Jadwal Makan")
+                    ScheduleOptionButton("⏰ Custom Jadwal")
+
+                    Spacer(modifier = Modifier.height(8.dp))
+
+                    Button(
+                        onClick = onDismiss,
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = RoundedCornerShape(10.dp)
+                    ) {
+                        Text("Tutup")
+                    }
+                }
+            }
+        }
+    }
+}
+
+// ==========================
+// OPTION BUTTON
+// ==========================
+@Composable
+private fun ScheduleOptionButton(
+    text: String
+) {
+    OutlinedButton(
+        onClick = { /* logic nanti */ },
+        modifier = Modifier.fillMaxWidth(),
+        shape = RoundedCornerShape(10.dp)
+    ) {
+        Text(text)
+    }
+}
+
+// ==========================
+// SWIPEABLE CALENDAR
 // ==========================
 @Composable
 private fun SwipeableCalendar() {
@@ -158,7 +242,7 @@ private fun CalendarWeekHeader() {
 }
 
 // ==========================
-// CALENDAR GRID (28–31 DAYS)
+// CALENDAR GRID
 // ==========================
 @Composable
 private fun CalendarGrid(daysInMonth: Int) {
@@ -188,7 +272,6 @@ private fun CalendarGrid(daysInMonth: Int) {
                         }
                     }
 
-                    // Isi sisa kolom agar baris terakhir tetap rapi
                     repeat(7 - week.size) {
                         Spacer(
                             modifier = Modifier
@@ -201,6 +284,7 @@ private fun CalendarGrid(daysInMonth: Int) {
         }
     }
 }
+
 // ==========================
 // UPCOMING SCHEDULE
 // ==========================
@@ -220,10 +304,9 @@ private fun UpcomingScheduleCard() {
 
             Spacer(modifier = Modifier.height(12.dp))
 
-            //Dummy data
             ScheduleItem("Morning Walk", "06:00 AM")
             ScheduleItem("Evening Jog", "05:30 PM")
-            ScheduleItem("Mukbang run", "07:00 PM")
+            ScheduleItem("Mukbang Run", "07:00 PM")
         }
     }
 }
@@ -249,5 +332,13 @@ private fun ScheduleItem(title: String, time: String) {
 private fun ScheduleScreenPreview() {
     WalkcoreTheme {
         ScheduleScreen()
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun AddSchedulePopupPreview() {
+    WalkcoreTheme {
+        AddSchedulePopup(onDismiss = {})
     }
 }
